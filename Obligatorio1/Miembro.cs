@@ -66,6 +66,10 @@ namespace Obligatorio1
             }
         }
 
+        /// <summary>
+        ///     Toma la lista de Miembros que son amigos
+        /// </summary>
+        /// <returns>Retorna una lista de mimebros filtrada</returns>
         public List<Miembro> ObtenerAmigos()
         {
             if (_listaAmigos.Count > 0)
@@ -75,6 +79,9 @@ namespace Obligatorio1
             return new List<Miembro>();  // retorno una lista vacía
         }
 
+        /// <summary>
+        ///     Asocia el Mimebro a la lista de amigps
+        /// </summary>
         public void asociarAmigo(Miembro miem)
         {
             _listaAmigos.Add(miem);

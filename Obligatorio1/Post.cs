@@ -31,12 +31,18 @@ namespace Obligatorio1
             ValidarPost();
         }
 
-
+        /// <summary>
+        ///     Devuelve la Lista de Comentarios del post
+        /// </summary>
+        /// <returns>Se retorna una lista></returns>
         public List<Comentario> ListaDeComentarios()
         {
             return _listaComentarios;
         }
 
+        /// <summary>
+        ///  Asocia el comentario a la lista del  Post
+        /// </summary>
         public void AsociarComentario(Comentario comentario)
         {
             _listaComentarios.Add(comentario);

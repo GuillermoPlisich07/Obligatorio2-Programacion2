@@ -54,6 +54,10 @@ namespace Obligatorio1
             }
         }
 
+        /// <summary>
+        ///     Esta funcion compara si dos objetos de la misma clase son iguales por id
+        /// </summary>
+        /// <returns>retorna un booleano</returns>
         public bool Equals(Invitacion other)
         {
             return other != null && Id == other.Id;

@@ -54,6 +54,10 @@ namespace Obligatorio1
             ValidarTitulo(Titulo);
         }
 
+        /// <summary>
+        ///     Compara si dos objetos de la misma clase son iguales por id
+        /// </summary>
+        /// <returns>Retorna una booleando</returns>
         public bool Equals(Publicacion other)
         {
             return other != null && Id == other.Id;

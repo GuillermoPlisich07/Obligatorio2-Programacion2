@@ -376,6 +376,9 @@ namespace Obligatorio1
             _listaInvitaciones.Add(invitacion);
         }
 
+        /// <summary>
+        ///     Esta funcion agregar o asocia a los mimebros para ser amigos
+        /// </summary>
         public void AgregarAmigoSistema(Invitacion invitacion)
         {
             try
@@ -404,6 +407,9 @@ namespace Obligatorio1
             }
         }
 
+        /// <summary>
+        ///         Esta funcion rechaza la invitacion
+        /// </summary>
         public void RechazarInvitacionSistema(Invitacion invitacion)
         {
             try
@@ -424,9 +430,6 @@ namespace Obligatorio1
                 throw e;
             }
         }
-
-
-
 
         /// <summary>
         ///     Esta funcion recibe un tipo Post y se valua que no este ya en la lista de Publicacion
@@ -472,7 +475,10 @@ namespace Obligatorio1
             _listaReacciones.Add(react);
         }
 
-
+        /// <summary>
+        ///     Esta funcion actualiza los contadores de like y dislike de la publicacion
+        ///     a  igual que el valor de VA.
+        /// </summary>
         public void ActualizarContadoresReacciones(Reaccion react,string actualizar = null)
         {
             if (react==null)
@@ -518,7 +524,10 @@ namespace Obligatorio1
             return miembro;
         }
 
-
+        /// <summary>
+        ///     Esta funcion busca al mimebro mediante si email y pass
+        /// </summary>
+        /// <returns>Retorna un Usuario</returns>
         public Usuario ObtenerUsuario(string email, string pass)
         {
             Usuario? usuar = null;
@@ -574,6 +583,10 @@ namespace Obligatorio1
             return "Se creo el miembro correctamente";
         }
 
+        /// <summary>
+        ///        Esta funcion lista todas las publicacion de sistema que sean Post
+        /// </summary>
+        /// <returns>Retorna una lista de Post</returns>
         public List<Post> ListarTodasLosPost()
         {
             List<Post> AuxList = new List<Post>();
@@ -588,6 +601,10 @@ namespace Obligatorio1
             return AuxList;
         }
 
+        /// <summary>
+        ///      Esta funcion verifica que los dos mimebros sean amigos
+        /// </summary>
+        /// <returns>Retorna una valor booleano</returns>
         public bool SonAmigos(Miembro logueado, Miembro aComprobar)
         {
             bool esAmigo = false;
@@ -646,106 +663,7 @@ namespace Obligatorio1
 
         }
 
-        public List<Publicacion> ListarTodasPublicacionesParaMiembro(string email)
-        {
-            try
-            {
-                if (string.IsNullOrEmpty(email))
-                {
-                    throw new Exception("Error en el email");
-                }
-
-                Usuario.ValidarEmail(email);
-                List<Publicacion> listaAux = new List<Publicacion>();
-                Miembro? miembro = ObtenerMiembro(email);
-                List<Miembro> listaAmigos = new List<Miembro>();
-
-                if (miembro != null)
-                {
-                    listaAmigos = miembro.ObtenerAmigos();
-                    foreach (Publicacion unapub in _listaPubicaciones)
-                    {
-                        if (unapub.Miembro == miembro || unapub.EsPublico || listaAmigos.Contains(unapub.Miembro))
-                        {
-                            listaAux.Add(unapub);
-                        }
-                    }
-                }
-                else
-                {
-                    throw new Exception("El miembro no existe");
-                }
-
-                return listaAux;
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
-
-        }
-
-        public List<Publicacion> ListarPostParaMiembro(string email)
-        {
-            try
-            {
-                List<Publicacion> todasPublicaciones = ListarTodasPublicacionesParaMiembro(email);
-                List<Publicacion> listaAux = new List<Publicacion>();
-                foreach (Publicacion unaPub in todasPublicaciones)
-                {
-                    if (unaPub is Post)
-                    {
-                        listaAux.Add((Post)unaPub);
-                    }
-                }
-                return listaAux;
-            }
-
-            catch (Exception e)
-            {
-                throw e;
-            }
-        }
-
-        public List<Post> ListarPostDelMiembro(string email)
-        {
-            try
-            {
-                if (string.IsNullOrEmpty(email))
-                {
-                    throw new Exception("Hubo un error en el pasaje de datos del email");
-                }
-
-                Usuario.ValidarEmail(email);
-                List<Post> listaAux = new List<Post>();
-
-                Miembro? miembro = ObtenerMiembro(email);
-
-                if (miembro != null)
-                {
-                    foreach (Publicacion unPub in _listaPubicaciones)
-                    {
-                        if (unPub.Miembro == miembro && unPub is Post)
-                        {
-                            Post p = (Post)unPub;
-                            listaAux.Add(p);
-                        }
-                    }
-                }
-                else
-                {
-                    throw new Exception("Miembro no existe");
-                }
-
-
-                return listaAux;
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
-        }
-
+       
         /// <summary>
         ///     Esta funcion toma la lista de publicaciones de la cual requerimos de los comentarios y los evalua por el mimebro que lo realizo si este coincide con el email
         ///     pasado a la funcion, casteamos la publicacion a comentario y añadimos a la nueva lista la refernecia al Post que guarda comentario.
@@ -893,6 +811,10 @@ namespace Obligatorio1
 
         }
 
+        /// <summary>
+        ///     Esta funcion devuelve todos los miembros del sistema
+        /// </summary>
+        /// <returns>Retorna una Lista Filtrada de Mimebros</returns>
         public List<Miembro> ListarMiembros()
         {
             List<Miembro> listaAux = new List<Miembro>();
@@ -909,7 +831,11 @@ namespace Obligatorio1
             listaAux.Sort();
             return listaAux;
         }
-
+        
+        /// <summary>
+        ///     Esta funcion busca todos los usuarios con solicitud de amistad para enviar para el usuario logueado
+        /// </summary>
+        /// <returns>Retorna una Lista de Mimebros Filtrada</returns>
         public List<Miembro> ListarMiembrosParaSolicitudAmistad(string email)   //paso como parametro el mail de usuario logueado
         {
             Miembro? miembro = ObtenerMiembro(email);
@@ -932,7 +858,10 @@ namespace Obligatorio1
             return listaAux;
         }
 
-
+        /// <summary>
+        ///     Esta funcion enlista todas las invitaciones para el miembro
+        /// </summary>
+        /// <returns>Retorna una lista filatrada de Invitacion</returns>
         public List<Invitacion> ObtenerInvitacionesParaUnMiembro(Miembro miem)
         {
             List<Invitacion> listaAux = new List<Invitacion>();
@@ -949,6 +878,10 @@ namespace Obligatorio1
             return listaAux;
         }
 
+        /// <summary>
+        ///     Esta funcion busca la invitacion por ID
+        /// </summary>
+        /// <returns>Retorna la invitacion buscada</returns>
         public Invitacion ObtenerInvitacionPorID(int IdInvita)
         {
             foreach (Invitacion unaI in _listaInvitaciones)
@@ -961,6 +894,10 @@ namespace Obligatorio1
             return null;
         }
 
+        /// <summary>
+        ///     Esta funcion obtiene la publicacion por ID
+        /// </summary>
+        /// <returns>Retorna una Publicacion</returns>
         public Publicacion ObtenerPublicacion(string id)
         {
             Publicacion obj = null;
@@ -990,7 +927,11 @@ namespace Obligatorio1
 
             return obj;
         }
-
+        
+        /// <summary>
+        ///     Esta funcion busca la reaccion por su publicacion y mimebro
+        /// </summary>
+        /// <returns>Retorna una Reaccion</returns>
         public Reaccion BuscarReaccion(Publicacion unPub, Miembro miem)
         {
             Reaccion obj = null;
@@ -1027,7 +968,10 @@ namespace Obligatorio1
 
 
 
-        //Metodo para calcular Valor de Aceptacion
+        /// <summary>
+        ///     Esta funcion se le pasa una publiacion y se calcula el valor de aceptacion
+        /// </summary>
+        /// <returns>Retorna un decimal</returns>
         public decimal CalcularVA(Publicacion unaPub)
         {
             decimal VA = 0;
@@ -1040,7 +984,11 @@ namespace Obligatorio1
         }
 
 
-        /// FALTA AGREGAR QUE EL POST NO ESTE BANEADO! 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="miem"></param>
+        /// <returns></returns>
         public List<Publicacion> ObtenerPublicacionesConAccesoMiembro(Miembro miem)
         {
             List<Publicacion> listaAux = new List<Publicacion>();
@@ -1059,7 +1007,10 @@ namespace Obligatorio1
             return listaAux;
         }
 
-
+        /// <summary>
+        ///     Obtiene solo los Post de la lista pasada
+        /// </summary>
+        /// <returns>Retorna una lista de Post</returns>
         public List<Post> ObtenerSoloPost(List<Publicacion> listaTotal)
         {
             List<Post> listaPost = new List<Post>();
@@ -1074,6 +1025,10 @@ namespace Obligatorio1
             return listaPost;
         }
 
+        /// <summary>
+        ///     Obtiene solos los comentarios de la lista pasada
+        /// </summary>
+        /// <returns>Retorna una lista de comentario</returns>
         public List<Comentario> ObtenerSoloComentario(List<Publicacion> listaTotal)
         {
             List<Comentario> listaComent = new List<Comentario>();

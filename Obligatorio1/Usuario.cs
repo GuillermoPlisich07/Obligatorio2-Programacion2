@@ -82,6 +82,10 @@ namespace Obligatorio1
             return Regex.IsMatch(pass, patron);
         }
 
+        /// <summary>
+        ///     Esta funcion compara dos objetos de la misma clase por su Email
+        /// </summary>
+        /// <returns>Retorna una variable booleana</returns>
         public bool Equals(Usuario other)
         {
             return other != null && Email == other.Email;

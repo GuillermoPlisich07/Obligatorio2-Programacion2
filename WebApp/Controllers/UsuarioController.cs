@@ -364,9 +364,7 @@ namespace WebApp.Controllers
             return View();
         }
 
-        // Dado un texto y un número, listar los Posts y/o comentarios que contengan ese texto
-        // siempre que tengan un valor de aceptación superior al número ingresado.
-        //Se deberá indicar de qué tipo de publicación se trata. 
+        
         [Miem]
         [HttpPost]
         public IActionResult FiltrarPublicaciones(string texto, int valorAceptacion)

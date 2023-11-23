@@ -48,6 +48,10 @@ namespace Obligatorio1
             }
         }
 
+        /// <summary>
+        ///        Compara dos objetos de la misma clase por su mimebro y publicacion
+        /// </summary>
+        /// <returns>Retorna un booleando</returns>
         public bool Equals(Reaccion other)
         {
             return other != null && Miembro == other.Miembro && PublicacionReaccionada == other.PublicacionReaccionada;
