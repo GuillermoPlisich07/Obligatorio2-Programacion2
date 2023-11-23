@@ -128,38 +128,55 @@ namespace WebApp.Controllers
 
         public IActionResult Login(string email, string password)
         {
-            Usuario unUsu = _sistema.ObtenerUsuario(email, password);
-            if (unUsu == null)
+            try
             {
-                return RedirectToAction("index");
+                if (email!=null)
+                {
+                    if (password!=null)
+                    {
+                        Usuario unUsu = _sistema.ObtenerUsuario(email, password);
+                        if (unUsu != null)
+                        {
+                            string rol = "";
+                            // Roles validos son admin / miem 
+                            if (unUsu.IsAdmin)
+                            {
+                                rol = "admin";
+                            }
+                            else if (!unUsu.IsAdmin)
+                            {
+                                rol = "miem";
+                            }
+
+                            // guardo los datos del usuario logueado
+                            HttpContext.Session.SetString("email", email);
+                            HttpContext.Session.SetString("rol", rol);
+
+                            return RedirectToAction("Index");
+                        }
+                        else
+                        {
+                            throw new Exception($"El usuario no existe");
+                        }
+                        
+                    }
+                    else
+                    {
+                        throw new Exception($"La password es requerida");
+                    }
+                }
+                else
+                {
+                    throw new Exception($"El email es requerido");
+                }
+            }
+            catch (Exception e)
+            {
+                ViewBag.error = e.Message;
+                return View("Index");
             }
 
-            string rol = "";
-            // Roles validos son admin / miem 
-            if (unUsu.IsAdmin)
-            {
-                rol = "admin";
-            }
-            else if (!unUsu.IsAdmin)
-            {
-                rol = "miem";
-            }
-
-            // guardo los datos del usuario logueado
-            HttpContext.Session.SetString("email", email);
-            HttpContext.Session.SetString("rol", rol);
-
-            /*
-             * if (rol == "admin")
-            {
-                return Redirect("/administrador");
-            }
-            else if (rol == "miem")
-            {
-                return Redirect("/miembro");
-            }
-            */
-            return RedirectToAction("index");
+            
         }
 
 
