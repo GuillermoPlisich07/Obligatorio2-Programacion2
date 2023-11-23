@@ -31,8 +31,7 @@ namespace Obligatorio1
         }
 
         //Constructor
-        public Publicacion(string contenido, DateTime fecha, Miembro miembro, string titulo, bool esPublico, 
-            int cdadLike, int cdadDislike, decimal vA)
+        public Publicacion(string contenido, DateTime fecha, Miembro miembro, string titulo, bool esPublico)
         {
             Id = ++autID;
             Contenido = contenido;

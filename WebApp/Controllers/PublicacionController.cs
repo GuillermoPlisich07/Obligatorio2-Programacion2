@@ -116,9 +116,9 @@ namespace WebApp.Controllers
                                 DateTime fechaActual = new DateTime();
                                 fechaActual = DateTime.Now;
 
-            Comentario nuevoComentario = new Comentario(unPost, comentario, fechaActual, miembro, titulo, unPost.EsPublico);
-            _sistema.CrearNuevoComentario(nuevoComentario);
-            unPost.AsociarComentario(nuevoComentario);
+                                Comentario nuevoComentario = new Comentario(unPost, comentario, fechaActual, miembro, titulo, unPost.EsPublico);
+                                _sistema.CrearNuevoComentario(nuevoComentario);
+                                unPost.AsociarComentario(nuevoComentario);
 
                                 return RedirectToAction("Saludo", "Usuario");
                             }

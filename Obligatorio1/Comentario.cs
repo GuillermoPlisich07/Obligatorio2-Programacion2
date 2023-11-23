@@ -10,9 +10,8 @@ namespace Obligatorio1
     {
         public Post Post { get; set; }
 
-        public Comentario(Post post, string contenido, DateTime fecha, Miembro miembro, string titulo, bool esPublico,
-            int cdadLike, int cdadDislike, decimal vA)
-        :base(contenido, fecha, miembro, titulo, esPublico, cdadLike, cdadDislike, vA)
+        public Comentario(Post post, string contenido, DateTime fecha, Miembro miembro, string titulo, bool esPublico)
+        :base(contenido, fecha, miembro, titulo, esPublico)
         {
             Post = post;
             ValidarComentario();
