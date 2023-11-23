@@ -37,19 +37,62 @@ namespace WebApp.Controllers
             string email = HttpContext.Session.GetString("email");
             string rol = HttpContext.Session.GetString("rol");
 
-            Miembro miembro = _sistema.ObtenerMiembro(email);
-            bool esPublico = false;
-            if (estado=="publico")
+            try
             {
-                esPublico = true;
+                Miembro miembro = _sistema.ObtenerMiembro(email);
+                if (miembro.Bloqueado==false)
+                {
+                    if (titulo!=null)
+                    {
+                        if (contenido!=null)
+                        {
+                            if (img!=null)
+                            {
+                                if (estado!=null)
+                                {
+                                    bool esPublico = false;
+                                    if (estado == "publico")
+                                    {
+                                        esPublico = true;
+                                    }
+                                    DateTime fechaActual = new DateTime();
+                                    fechaActual = DateTime.Now;
+
+                                    Post post5 = new Post(contenido, fechaActual, miembro, titulo, img, estado, false, esPublico);
+                                    _sistema.CrearNuevoPost(post5);
+
+                                    return RedirectToAction("Saludo", "Usuario");
+                                }
+                                else
+                                {
+                                    throw new Exception($"El estado es requerido");
+                                }
+                            }
+                            else
+                            {
+                                throw new Exception($"La imagen es requerido");
+                            }
+                        }
+                        else
+                        {
+                            throw new Exception($"El contenido es requerido");
+                        }
+                    }
+                    else
+                    {
+                        throw new Exception($"El titulo es requerido");
+                    }
+                }
+                else
+                {
+                    throw new Exception($"No se puede realizar posteos tiene la cuenta bloqueada");
+                }
             }
-            DateTime fechaActual = new DateTime();
-            fechaActual = DateTime.Now;
-
-            Post post5 = new Post(contenido, fechaActual, miembro, titulo, img, estado, false, esPublico);
-            _sistema.CrearNuevoPost(post5);
-
-            return RedirectToAction("Saludo", "Usuario");
+            catch (Exception e)
+            {
+                ViewBag.error = e.Message;
+                return View("VistaPublicar");
+            }
         }
 
         [HttpPost]
@@ -58,16 +101,52 @@ namespace WebApp.Controllers
             string email = HttpContext.Session.GetString("email");
             string rol = HttpContext.Session.GetString("rol");
 
-            Post unPost = (Post)_sistema.ObtenerPublicacion(objetoComentario);
             Miembro miembro = _sistema.ObtenerMiembro(email);
-            DateTime fechaActual = new DateTime();
-            fechaActual = DateTime.Now;
+            try
+            {
+                if (miembro.Bloqueado==false)
+                {
+                    if (objetoComentario != null)
+                    {
+                        if (titulo != null)
+                        {
+                            if (comentario != null)
+                            {
+                                Post unPost = (Post)_sistema.ObtenerPublicacion(objetoComentario);
+                                DateTime fechaActual = new DateTime();
+                                fechaActual = DateTime.Now;
 
-            Comentario nuevoComentario = new Comentario(unPost, comentario, fechaActual, miembro, titulo, unPost.EsPublico);
-            _sistema.CrearNuevoComentario(nuevoComentario);
-            unPost.AsociarComentario(nuevoComentario);
+                                Comentario nuevoComentario = new Comentario(unPost, comentario, fechaActual, miembro, titulo, unPost.EsPublico);
+                                _sistema.CrearNuevoComentario(nuevoComentario);
+                                unPost.AsociarComentario(nuevoComentario);
 
-            return RedirectToAction("Saludo", "Usuario");
+                                return RedirectToAction("Saludo", "Usuario");
+                            }
+                            else
+                            {
+                                throw new Exception($"El comentario es requerido");
+                            }
+                        }
+                        else
+                        {
+                            throw new Exception($"El titulo es requerido");
+                        }
+                    }
+                    else
+                    {
+                        throw new Exception($"El objeto Post no esta referenciado");
+                    }
+                }
+                else
+                {
+                    throw new Exception($"No se puede realizar comentarios tiene la cuenta bloqueada");
+                }
+            }catch (Exception e)
+            {
+                return RedirectToAction("Saludo", "Usuario", new{ error= e.Message});
+            }
         }
+
+
     }
 }

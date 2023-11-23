@@ -942,7 +942,7 @@ namespace Obligatorio1
 
                     foreach (Publicacion unPub in _listaPubicaciones)
                     {
-                        if (unPub is Post post && post.Id == int.Parse(id))
+                        if (unPub.Id == int.Parse(id))
                         {
                             obj = unPub;
                         }

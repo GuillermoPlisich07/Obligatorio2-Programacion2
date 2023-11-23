@@ -14,7 +14,7 @@
             <div class="container-fluid">
                 @if (@Context.Session.GetString("rol") == "miem")
                 {
-                    <a class="navbar-brand" asp-area="" asp-controller="Usuario" asp-action="Saludo">WebApp</a>
+                    <a class="navbar-brand" asp-area="" asp-controller="Usuario" asp-action="Saludo">Inicio</a>
                 }
                 else if (@Context.Session.GetString("rol") == null)
                 {

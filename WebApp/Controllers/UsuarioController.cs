@@ -24,8 +24,12 @@ namespace WebApp.Controllers
             return View();
         }
 
-        public IActionResult Saludo()
+        public IActionResult Saludo( string error = "" )
         {
+            if (error!="")
+            {
+                ViewBag.error = error;
+            }
             string email = HttpContext.Session.GetString("email");
             // Obtengo el nombre de usuario desde el correo electrónico
             string nombreUsuario = email.Split('@')[0];
@@ -95,44 +99,6 @@ namespace WebApp.Controllers
                     ViewData["Comentarios"] = null;
                 }
 
-                //Miembro unMiem = _sistema.ObtenerMiembro(email);
-                //if (unMiem != null)
-                //{
-
-                //    List<Miembro> amigos = unMiem.ObtenerAmigos();
-
-                //    List<Comentario> comentarios = new List<Comentario>();
-
-                //    List<Post> postsAmigos = new List<Post>();
-
-                //    foreach (Miembro unAmi in amigos)
-                //    {
-
-                //        List<Post> posts = _sistema.ListarPostDelMiembro(unAmi.Email);
-
-                //        foreach (Post unPost in posts)
-                //        {
-                //            postsAmigos.Add(unPost);
-                //            List<Comentario> comenPostAmigo = unPost.ListaDeComentarios();
-
-                //            foreach (Comentario unCom in comenPostAmigo)
-                //            {
-                //                comentarios.Add(unCom);
-                //            }
-                //        }
-
-                //    }
-
-                //    ViewData["Posts"] = postsAmigos;
-
-                //    ViewData["Comentarios"] = comentarios;
-                //}
-                //else
-                //{
-                //    ViewData["Posts"] = null;
-
-                //    ViewData["Comentarios"] = null;
-                //}
             }
             else
             {
@@ -212,16 +178,56 @@ namespace WebApp.Controllers
 
             try
             {
-                DateTime fechaNac = DateTime.Parse(fechaNacimiento);
-                Miembro nuevo = new Miembro(email,password,false,nombre,apellido,fechaNac);
-                _sistema.CrearNuevoMiembro(nuevo);
-                return RedirectToAction("index");
+                if (fechaNacimiento != null)
+                {
+                    if (email != null)
+                    {
+                        if (password != null)
+                        {
+                            if (nombre != null)
+                            {
+                                if (apellido != null)
+                                {
+                                    DateTime fechaNac = DateTime.Parse(fechaNacimiento);
+                                    Miembro nuevo = new Miembro(email, password, false, nombre, apellido, fechaNac);
+                                    _sistema.CrearNuevoMiembro(nuevo);
+                                    return RedirectToAction("index");
+                                }
+                                else
+                                {
+                                    throw new Exception($"El apellido es requerido");
+
+                                }
+                            }
+                            else
+                            {
+                                throw new Exception($"El nombre es requerido");
+
+                            }
+                        }
+                        else
+                        {
+                            throw new Exception($"La password es requerida");
+
+                        }
+                    }
+                    else
+                    {
+                        throw new Exception($"El mail es requerido");
+
+                    }
+                }
+                else
+                {
+                    throw new Exception($"La fecha esta vacia");
+                }
+                
             }
             catch (Exception e)
             {
                 ViewBag.error = e.Message;
+                return View("CreateMiembro");
             }
-            return View("index");
         }
 
 

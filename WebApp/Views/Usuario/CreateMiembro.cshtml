@@ -7,7 +7,7 @@
 @{
 }
 
-@ViewBag.error
+
 <div class="container mt-5">
     <h1>Registro de Miembro</h1>
 
@@ -21,6 +21,7 @@
 
                 <label for="fechaNacimiento">Fecha de Nacimiento:</label>
                 <input type="date" id="fechaNacimiento" name="fechaNacimiento" /><br />
+                @ViewBag.error
 
             <div class="alinearDerecha"><button type="submit" class="btn btn-success">Alta</button></div>
             </div>

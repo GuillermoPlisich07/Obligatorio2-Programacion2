@@ -10,6 +10,7 @@
 
 
 <h2>Hola, @ViewData["NombreUsuario"]</h2>
+<div class="error">@ViewBag.error</div>
 
 @{
     List<Post> publicaciones = ViewData["Posts"] as List<Post>;
@@ -64,7 +65,28 @@
                                         <h5 class="card-title">@comentario.Titulo</h5>
                                         <p>Fecha: @comentario.Fecha.ToShortDateString() - Autor: @comentario.Miembro.Nombre @comentario.Miembro.Apellido</p>
                                     </div>
-                                    <p class="card-text">@comentario.Contenido</p>
+                                    <div class="contendio-comentario">
+                                        <p class="card-text">@comentario.Contenido</p>
+
+                                        <div class="reaccion-comentario">
+                                                
+                                            @using (Html.BeginForm("Reaccionar", "Reaccion", FormMethod.Post))
+                                            {
+
+                                                <input type="hidden" id="objetoPost" name="objetoPost" value="@comentario.Id" />
+                                                <input type="hidden" id="tipoReaccion" name="tipoReaccion" value="like" />
+                                                <button type="submit" class="btn btn-success">Like</button>
+                                            }
+
+                                            @using (Html.BeginForm("Reaccionar", "Reaccion", FormMethod.Post))
+                                            {
+                                                <input type="hidden" id="objetoPost" name="objetoPost" value="@comentario.Id" />
+                                                <input type="hidden" id="tipoReaccion" name="tipoReaccion" value="dislike" />
+                                                <button type="submit" class="btn btn-danger">Dislike</button>
+                                            }
+                                        </div>
+                                    </div>
+                                    
                                 </div>
                             </div>
                         }
@@ -90,13 +112,17 @@
         <br />
 
     }
+
+}
+else
+{
+    <h1>No hay Publicaciones visibles!</h1>
 }
 
 
 <style>
     #comentario{
         width: 100%;
-
     }
 
     .alinearDerecha{
@@ -122,6 +148,18 @@
         border-top: 1px solid rgba(0,0,0,.125);
     }
 
+    .reaccion-comentario {
+        display: flex;
+        align-items: end;
+        gap: 10px;
+    }
+
+    .contendio-comentario{
+        width:100%;
+        display: flex;
+        justify-content:space-between;
+    }
+
     .titulo-comentario {
         display: flex;
         justify-content: space-between;
@@ -130,5 +168,9 @@
     .card-header {
         display: flex;
         justify-content: space-between;
+    }
+
+    .error{
+        color: red;
     }
 </style>
