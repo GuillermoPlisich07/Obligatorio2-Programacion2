@@ -421,7 +421,7 @@ namespace Obligatorio1
             }
         }
 
-        
+
 
 
         /// <summary>
@@ -472,8 +472,8 @@ namespace Obligatorio1
 
         public void ActualizarContadoresReacciones(Reaccion react)
         {
-            if (react.TipoReaccion == "like") 
-            { 
+            if (react.TipoReaccion == "like")
+            {
                 react.PublicacionReaccionada.CdadLike++;
             }
             else if (react.TipoReaccion == "dislike")
@@ -498,7 +498,7 @@ namespace Obligatorio1
                     miembro = (Miembro)user;
                     break;
                 }
-                
+
             }
             return miembro;
         }
@@ -575,11 +575,11 @@ namespace Obligatorio1
 
         public bool SonAmigos(Miembro logueado, Miembro aComprobar)
         {
-            bool esAmigo= false;
-            List<Miembro> amigos= logueado.ObtenerAmigos();
+            bool esAmigo = false;
+            List<Miembro> amigos = logueado.ObtenerAmigos();
             foreach (var unAmig in amigos)
             {
-                if (unAmig==aComprobar)
+                if (unAmig == aComprobar)
                 {
                     esAmigo = true;
                 }
@@ -631,7 +631,6 @@ namespace Obligatorio1
 
         }
 
-        // ACA ----------------------------------------
         public List<Publicacion> ListarTodasPublicacionesParaMiembro(string email)
         {
             try
@@ -1026,11 +1025,53 @@ namespace Obligatorio1
         }
 
 
+        /// FALTA AGREGAR QUE EL POST NO ESTE BANEADO! 
+        public List<Publicacion> ObtenerPublicacionesConAccesoMiembro(Miembro miem)
+        {
+            List<Publicacion> listaAux = new List<Publicacion>();
+
+            foreach (Publicacion unaPub in _listaPubicaciones)
+            {
+                if (
+                    (unaPub.EsPublico && !unaPub.Miembro.Bloqueado) ||
+                    (unaPub.Miembro == miem && !unaPub.Miembro.Bloqueado) ||
+                    (!unaPub.EsPublico && !unaPub.Miembro.Bloqueado && SonAmigos(unaPub.Miembro, miem))
+                    )
+                {
+                    listaAux.Add(unaPub);
+                }
+            }
+            return listaAux;
+        }
 
 
+        public List<Post> ObtenerSoloPost(List<Publicacion> listaTotal)
+        {
+            List<Post> listaPost = new List<Post>();
 
+            foreach (Publicacion unaPub in listaTotal)
+            {
+                if (unaPub is Post)
+                {
+                    listaPost.Add((Post)unaPub);
+                }
+            }
+            return listaPost;
+        }
 
+        public List<Comentario> ObtenerSoloComentario(List<Publicacion> listaTotal)
+        {
+            List<Comentario> listaComent = new List<Comentario>();
 
+            foreach (Publicacion unaPub in listaTotal)
+            {
+                if (unaPub is Comentario)
+                {
+                    listaComent.Add((Comentario)unaPub);
+                }
+            }
+            return listaComent;
+        }
 
 
 
@@ -1038,4 +1079,5 @@ namespace Obligatorio1
 
 
     }
+
 }

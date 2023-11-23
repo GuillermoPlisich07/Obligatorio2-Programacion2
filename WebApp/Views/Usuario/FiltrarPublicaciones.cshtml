@@ -1,0 +1,62 @@
+﻿@using Obligatorio1;
+@model dynamic;
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@ViewBag.error
+
+@{
+    List<Post> posts = ViewBag.PostFiltrados ?? new List<Post>();
+    List<Comentario> comentarios = ViewBag.ComentariosFiltrados ?? new List<Comentario>();
+}
+
+@if (!posts.Any() && !comentarios.Any())
+{
+    <p>
+        No existen resultados 😔
+    </p>
+}
+else
+{
+    @foreach (Post unPost in posts)
+    {
+
+        <div>
+            <div class="UnaLinea">
+                <h3>POST: @unPost.Titulo</h3>
+                <p>Fecha: @unPost.Fecha.ToShortDateString()</p>
+                <p>@unPost.Contenido</p>
+                <p><em>Autor: @unPost.Miembro.Nombre @unPost.Miembro.Apellido</em></p>
+            </div>
+
+            @if (comentarios != null)
+            {
+                @foreach (Comentario comentario in comentarios)
+                {
+                    @if (comentario.Post == unPost)
+                    {
+                        <div>
+                            <p>Comentario: @comentario.Titulo</p>
+                            <p>@comentario.Contenido</p>
+                            <p>Fecha del Comentario: @comentario.Fecha.ToShortDateString()</p>
+                            <p>Autor del Comentario: @comentario.Miembro.Nombre @comentario.Miembro.Apellido</p>
+                        </div>
+                    }
+                }
+            }
+
+        </div>
+
+    }
+}
+
+<style>
+    .UnaLinea {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 20px;
+    }
+</style>

@@ -24,9 +24,9 @@ namespace WebApp.Controllers
             return View();
         }
 
-        public IActionResult Saludo( string error = "" )
+        public IActionResult Saludo(string error = "")
         {
-            if (error!="")
+            if (error != "")
             {
                 ViewBag.error = error;
             }
@@ -52,7 +52,7 @@ namespace WebApp.Controllers
 
                     foreach (Post unPost in ListPublicacion)
                     {
-                        if (unPost.Miembro.Bloqueado== false && unPost.Censurado==false)
+                        if (unPost.Miembro.Bloqueado == false && unPost.Censurado == false)
                         {
                             if (unMiem == unPost.Miembro)
                             {
@@ -85,7 +85,7 @@ namespace WebApp.Controllers
                                 }
                             }
                         }
-                        
+
                     }
                     ViewData["Posts"] = post;
 
@@ -172,7 +172,7 @@ namespace WebApp.Controllers
 
 
         [HttpPost]
-        public IActionResult CrearMiembro(string email,string password, string nombre,
+        public IActionResult CrearMiembro(string email, string password, string nombre,
             string apellido, string fechaNacimiento)
         {
 
@@ -221,7 +221,7 @@ namespace WebApp.Controllers
                 {
                     throw new Exception($"La fecha esta vacia");
                 }
-                
+
             }
             catch (Exception e)
             {
@@ -321,7 +321,7 @@ namespace WebApp.Controllers
 
         [Miem]
         [HttpPost]
-        public IActionResult RechazarSolicitudAmistad(string IDInvitacion)  
+        public IActionResult RechazarSolicitudAmistad(string IDInvitacion)
         {
             int idInvita = int.Parse(IDInvitacion);
             Invitacion unaInvita = _sistema.ObtenerInvitacionPorID(idInvita);
@@ -333,11 +333,52 @@ namespace WebApp.Controllers
             return RedirectToAction("ListarMiembrosParaSolicitudAmistad");
         }
 
-        
 
+        //muestra el buscador
+        [Miem]
+        public IActionResult BuscadorParaMiembro()
+        {
+            return View();
+        }
 
+        // Dado un texto y un número, listar los Posts y/o comentarios que contengan ese texto
+        // siempre que tengan un valor de aceptación superior al número ingresado.
+        //Se deberá indicar de qué tipo de publicación se trata. 
+        [Miem]
+        [HttpPost]
+        public IActionResult FiltrarPublicaciones(string texto, int valorAceptacion)
+        {
+            // miembro logueado
+            string email = HttpContext.Session.GetString("email");
+            Miembro miemLog = _sistema.ObtenerMiembro(email);
 
+            //ViewData["Email"] = email;
 
+            List<Publicacion> publicacionesConAcceso = _sistema.ObtenerPublicacionesConAccesoMiembro(miemLog);
+            List<Publicacion> publicacionesFiltradas = new List<Publicacion>();
+
+            foreach (Publicacion unaPub in publicacionesConAcceso)
+            {
+                if (
+                (unaPub.VA > valorAceptacion) &&
+                (unaPub.Contenido.Contains(texto) || unaPub.Titulo.Contains(texto))
+                )
+                {
+                    publicacionesFiltradas.Add(unaPub);
+                }
+
+                //ViewData["PublicacionesFiltradas"] = publicacionesFiltradas;
+
+                //paso datos a la vista
+
+                List <Post> PostFiltrados = _sistema.ObtenerSoloPost(publicacionesFiltradas);
+                List <Comentario> ComentariosFiltrados = _sistema.ObtenerSoloComentario(publicacionesFiltradas);
+
+                ViewBag.PostFiltrados = PostFiltrados;
+                ViewBag.ComentariosFiltrados = ComentariosFiltrados;
+            }
+            return View();
+        }
 
 
     }

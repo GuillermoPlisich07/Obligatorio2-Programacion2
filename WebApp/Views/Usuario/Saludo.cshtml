@@ -78,6 +78,7 @@
                                                 <input type="hidden" id="objetoPost" name="objetoPost" value="@unaPub.Id" />
                                                 <input type="hidden" id="tipoReaccion" name="tipoReaccion" value="like" />
                                                 <button type="submit" class="btn btn-success">Like</button>
+                                                <span>👍: @comentario.CdadLike </span>
                                             }
 
                                             @using (Html.BeginForm("Reaccionar", "Reaccion", FormMethod.Post))
@@ -85,6 +86,8 @@
                                                 <input type="hidden" id="objetoPost" name="objetoPost" value="@unaPub.Id" />
                                                 <input type="hidden" id="tipoReaccion" name="tipoReaccion" value="dislike" />
                                                 <button type="submit" class="btn btn-danger">Dislike</button>
+                                                <span>👎: @comentario.CdadDislike </span>
+                                                <span>VA: @comentario.VA </span>
                                             }
                                         </div>
                                     </div>

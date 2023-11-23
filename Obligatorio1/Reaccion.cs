@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Obligatorio1
 {
-    public class Reaccion
+    public class Reaccion : IEquatable<Reaccion>
     {
 
         public string TipoReaccion { get; set; }
@@ -46,6 +46,11 @@ namespace Obligatorio1
             {
                 throw new Exception($"Tipo de reaccion: {tipoReaccion} no es valido");
             }
+        }
+
+        public bool Equals(Reaccion other)
+        {
+            return other != null && Miembro == other.Miembro && PublicacionReaccionada == other.PublicacionReaccionada;
         }
 
 
