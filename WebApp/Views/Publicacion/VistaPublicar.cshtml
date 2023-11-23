@@ -1,0 +1,47 @@
+﻿@using Obligatorio1;
+@model dynamic
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+
+<div class="container mt-5">
+        <h1>Nuevo Post</h1>
+
+        @using (Html.BeginForm("Postear", "Publicacion", FormMethod.Post))
+        {
+            <div class="contenedor">
+                <input type="text" id="titulo" name="titulo" placeholder="Ingresar el titulo del Post" /><br />
+                <textarea id="contenido" name="contenido" placeholder="Ingrese el contenido del Post"></textarea>
+                <br />
+                <input type="text" id="img" name="img" placeholder="Ingresar la imagen" />
+                <br />
+                <select id="estado" name="estado">
+                    <option value="publico" label="Publico"></option>
+                    <option value="privado" label="Privado" selected></option>
+                </select>
+                <br />
+                <div class="alinearDerecha"><button type="submit" class="btn btn-primary">Publicar</button></div>
+                
+            </div>
+        }
+</div>
+
+<style>
+    #contendio {
+        width: 100%;
+    }
+
+    .contenedor{
+        width: 100%;
+        text-align:center;
+        display:flex;
+        flex-direction: column;
+    }
+
+    .alinearDerecha {
+        text-align: end;
+    }
+</style>

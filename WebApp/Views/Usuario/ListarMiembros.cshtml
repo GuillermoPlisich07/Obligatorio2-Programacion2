@@ -1,0 +1,61 @@
+﻿@using Obligatorio1;
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<h1>Lista de Miembros</h1>
+
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th scope="col">Email</th>
+            <th scope="col">Password</th>
+            <th scope="col">nombre</th>
+            <th scope="col">apellido</th>
+            <th scope="col">Acción</th>
+            <th scope="col">Acción</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (Miembro unU in ViewBag.Miembros)
+        {
+            <tr>
+                <th scope="row">@unU.Email</th>
+                <td>@unU.Password</td>
+                <td>@unU.Nombre</td>
+                <td>@unU.Apellido</td>
+                <td>
+                    @if (!unU.Bloqueado)
+                    {
+                        <form method="post" asp-action="BloquearMiembro">
+                            <input type="hidden" name="email" value="@unU.Email" />
+                            <button type="submit" class="btn btn-danger">
+                                Bloquear
+                            </button>
+                        </form>
+                    }
+                    else
+                    {
+                        <form method="post" asp-action="ActivarMiembro">
+                            <input type="hidden" name="email" value="@unU.Email" />
+                            <button type="submit" class="btn btn-success">
+                                Activar
+                            </button>
+                        </form>
+                    }
+                </td>
+                <td>
+                    <button type="button" class="btn btn-info">
+                        @Html.ActionLink("Ver publicacion", "Index", "Publicacion", new { email = unU.Email })
+                    </button>
+                </td>
+
+            </tr>
+        }
+
+    </tbody>
+</table>

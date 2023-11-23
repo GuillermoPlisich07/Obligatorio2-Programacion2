@@ -1,0 +1,134 @@
+﻿@using Obligatorio1;
+@model dynamic
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@{
+    //Layout = null;
+}
+
+
+<h2>Hola, @ViewData["NombreUsuario"]</h2>
+
+@{
+    List<Post> publicaciones = ViewData["Posts"] as List<Post>;
+    List<Comentario> comentarios = ViewData["Comentarios"] as List<Comentario>;
+}
+
+@if (publicaciones != null)
+{
+    @foreach (var unaPub in publicaciones)
+    {
+        <div class="container mt-5">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">@unaPub.Titulo</h5>
+                    <p class="card-text">Fecha: @unaPub.Fecha.ToShortDateString() - Autor: @unaPub.Miembro.Nombre @unaPub.Miembro.Apellido</p>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">@unaPub.Contenido</p>
+                </div>
+                <div class="card-footer-post">
+
+
+
+                    @using (Html.BeginForm("Reaccionar", "Reaccion", FormMethod.Post))
+                    {
+                        <input type="hidden" id="objetoPost" name="objetoPost" value="@unaPub.Id" />
+                        <input type="hidden" id="tipoReaccion" name="tipoReaccion" value="like" />
+                        <button type="submit" class="btn btn-success">Like</button>
+                    }
+
+                    @using (Html.BeginForm("Reaccionar", "Reaccion", FormMethod.Post))
+                    {
+                        <input type="hidden" id="objetoPost" name="objetoPost" value="@unaPub.Id" />
+                        <input type="hidden" id="tipoReaccion" name="tipoReaccion" value="dislike" />
+                        <button type="submit" class="btn btn-danger">Dislike</button>
+                    }
+
+                    
+                </div>
+
+
+                @if (comentarios != null)
+                {
+                    @foreach (Comentario comentario in comentarios)
+                    {
+                        @if (comentario.Post == unaPub)
+                        {
+                            <!-- Sección de comentarios -->
+                            <div class="card-footer">
+                                <div class="nested-comment">
+                                    <div class="titulo-comentario">
+                                        <h5 class="card-title">@comentario.Titulo</h5>
+                                        <p>Fecha: @comentario.Fecha.ToShortDateString() - Autor: @comentario.Miembro.Nombre @comentario.Miembro.Apellido</p>
+                                    </div>
+                                    <p class="card-text">@comentario.Contenido</p>
+                                </div>
+                            </div>
+                        }
+                    }
+                }
+
+                <div class="card-footer-comentar">
+                    <div class="nested-comment">
+                        <h5 class="card-title">Comentar</h5>
+                        @using (Html.BeginForm("Comentar", "Publicacion", FormMethod.Post))
+                        {
+                            <input type="hidden" id="objetoComentario" name="objetoComentario" value="@unaPub.Id" />
+                            <input type="text" id="titulo" name="titulo" placeholder="Titulo del comentario" />
+                            <textarea id="comentario" name="comentario" placeholder="Ingrese su comentario"></textarea>
+                            <div class="alinearDerecha"><button type="submit" class="btn btn-primary">Comentar</button></div>
+                        }
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <br />
+
+    }
+}
+
+
+<style>
+    #comentario{
+        width: 100%;
+
+    }
+
+    .alinearDerecha{
+        text-align:end;
+    }
+
+    .card-footer{
+        background-color: rgb(69 153 64 / 15%) !important;
+    }
+
+    .card-footer-comentar{
+        padding: 0.5rem 1rem;
+        background-color: rgb(93 96 199 / 22%);
+        border-top: 1px solid rgba(0,0,0,.125);
+    }
+
+    .card-footer-post {
+        display: flex;
+        align-items: end;
+        gap: 10px;
+        padding: 0.5rem 1rem;
+        background-color: rgba(0,0,0,.03);
+        border-top: 1px solid rgba(0,0,0,.125);
+    }
+
+    .titulo-comentario {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .card-header {
+        display: flex;
+        justify-content: space-between;
+    }
+</style>

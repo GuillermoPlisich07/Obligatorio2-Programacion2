@@ -1,0 +1,42 @@
+﻿@using Obligatorio1;
+@model dynamic;
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@ViewBag.error
+<div class="container mt-5">
+    <h1>Registro de Miembro</h1>
+
+        @using (Html.BeginForm("CrearMiembro", "Usuario", FormMethod.Post))
+        {
+            <div class="contenedor">
+                <input type="email" placeholder="Ingrese mail" name="email" /><br />
+                <input type="password" placeholder="Ingrese password" name="password" /><br />
+                <input type="text" placeholder="Ingrese su nombre" name="nombre" /><br />
+                <input type="text" placeholder="Ingrese el apellido" name="apellido" /><br />
+
+                <label for="fechaNacimiento">Fecha de Nacimiento:</label>
+                <input type="date" id="fechaNacimiento" name="fechaNacimiento" /><br />
+
+            <div class="alinearDerecha"><button type="submit" class="btn btn-success">Alta</button></div>
+            </div>
+        }
+</div>
+
+<style>
+ 
+    .contenedor {
+        width: 100%;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .alinearDerecha {
+        text-align: end;
+    }
+</style>
