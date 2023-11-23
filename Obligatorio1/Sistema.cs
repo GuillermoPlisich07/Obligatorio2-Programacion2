@@ -480,6 +480,7 @@ namespace Obligatorio1
             {
                 react.PublicacionReaccionada.CdadDislike++;
             }
+            react.PublicacionReaccionada.VA = CalcularVA(react.PublicacionReaccionada);
         }
 
 
@@ -1012,39 +1013,11 @@ namespace Obligatorio1
 
 
 
-        public int ContarLikes(Publicacion unaPub)
-        {
-            int contador = 0;
-            foreach (Reaccion unaRea in _listaReacciones)
-            {
-                if (unaRea.TipoReaccion == "like" && unaRea.PublicacionReaccionada == unaPub)
-                {
-                    contador++;
-                }
-            }
-            return contador;
-        }
-
-        public int ContarDislikes(Publicacion unaPub)
-        {
-            int contador = 0;
-            foreach (Reaccion unaRea in _listaReacciones)
-            {
-                if (unaRea.TipoReaccion == "dislike" && unaRea.PublicacionReaccionada == unaPub)
-                {
-                    contador++;
-                }
-            }
-            return contador;
-        }
-
         //Metodo para calcular Valor de Aceptacion
         public decimal CalcularVA(Publicacion unaPub)
         {
             decimal VA = 0;
-            int cdadLikes = ContarLikes(unaPub);
-            int cdadDislikes = ContarDislikes(unaPub);
-            VA = (cdadLikes * 5) + (cdadDislikes * (-2));
+            VA = (unaPub.CdadLike * 5) + (unaPub.CdadDislike * (-2));
             if (unaPub is Post && unaPub.EsPublico)
             {
                 VA = VA + 10;
