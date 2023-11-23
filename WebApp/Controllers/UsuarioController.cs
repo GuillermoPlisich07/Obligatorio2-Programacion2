@@ -341,7 +341,7 @@ namespace WebApp.Controllers
             // Actualiza la página
             return RedirectToAction("ListarMiembrosParaSolicitudAmistad");
         }
-
+         
         [Miem]
         [HttpPost]
         public IActionResult RechazarSolicitudAmistad(string IDInvitacion)
@@ -383,8 +383,9 @@ namespace WebApp.Controllers
             foreach (Publicacion unaPub in publicacionesConAcceso)
             {
                 if (
-                (unaPub.VA > valorAceptacion) &&
-                (unaPub.Contenido.Contains(texto) || unaPub.Titulo.Contains(texto))
+                (unaPub.VA >= valorAceptacion) &&
+                (unaPub.Contenido.Contains(texto, StringComparison.OrdinalIgnoreCase) ||
+                 unaPub.Titulo.Contains(texto, StringComparison.OrdinalIgnoreCase))
                 )
                 {
                     publicacionesFiltradas.Add(unaPub);

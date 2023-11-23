@@ -13,6 +13,8 @@
     List<Comentario> comentarios = ViewBag.ComentariosFiltrados ?? new List<Comentario>();
 }
 
+<h1>Resultados de la búsqueda</h1>
+
 @if (!posts.Any() && !comentarios.Any())
 {
     <p>
@@ -21,36 +23,34 @@
 }
 else
 {
-    @foreach (Post unPost in posts)
+    if (posts.Any())
     {
-
-        <div>
+        <h2>POST: </h2>
+        @foreach (Post unPost in posts)
+        {
             <div class="UnaLinea">
-                <h3>POST: @unPost.Titulo</h3>
-                <p>Fecha: @unPost.Fecha.ToShortDateString()</p>
+                <h4>@unPost.Titulo</h4>
                 <p>@unPost.Contenido</p>
                 <p><em>Autor: @unPost.Miembro.Nombre @unPost.Miembro.Apellido</em></p>
+                <p>VA: @unPost.VA</p>
             </div>
-
-            @if (comentarios != null)
-            {
-                @foreach (Comentario comentario in comentarios)
-                {
-                    @if (comentario.Post == unPost)
-                    {
-                        <div>
-                            <p>Comentario: @comentario.Titulo</p>
-                            <p>@comentario.Contenido</p>
-                            <p>Fecha del Comentario: @comentario.Fecha.ToShortDateString()</p>
-                            <p>Autor del Comentario: @comentario.Miembro.Nombre @comentario.Miembro.Apellido</p>
-                        </div>
-                    }
-                }
-            }
-
-        </div>
-
+        }
     }
+
+    if (comentarios.Any())
+    {
+        <h2>COMENTARIOS: </h2>
+        @foreach (Comentario comentario in comentarios)
+        {
+            <div>
+                <h5>@comentario.Titulo</h5>
+                <p>@comentario.Contenido</p>
+                <p><em>Autor: del Comentario: @comentario.Miembro.Nombre @comentario.Miembro.Apellido</em></p>
+                <p>VA: @comentario.VA</p>
+            </div>
+        }
+    }
+
 }
 
 <style>
