@@ -15,6 +15,7 @@
 @{
     List<Post> publicaciones = ViewData["Posts"] as List<Post>;
     List<Comentario> comentarios = ViewData["Comentarios"] as List<Comentario>;
+    string rol = ViewData["userLogin"] as string;
 }
 
 @if (publicaciones != null)
@@ -75,7 +76,8 @@
                                         <div class="reaccion-comentario">
                                             @using (Html.BeginForm("Reaccionar", "Reaccion", FormMethod.Post))
                                             {
-                                                <input type="hidden" id="objetoPost" name="objetoPost" value="@unaPub.Id" />
+                                                <span>👍: @comentario.CdadLike </span>
+                                                <input type="hidden" id="objetoPost" name="objetoPost" value="@comentario.Id" />
                                                 <input type="hidden" id="tipoReaccion" name="tipoReaccion" value="like" />
                                                 <button type="submit" class="btn btn-success">Like</button>
                                                 <span>👍: @comentario.CdadLike </span>
@@ -83,10 +85,11 @@
 
                                             @using (Html.BeginForm("Reaccionar", "Reaccion", FormMethod.Post))
                                             {
-                                                <input type="hidden" id="objetoPost" name="objetoPost" value="@unaPub.Id" />
+                                                <span>👎: @comentario.CdadDislike </span>
+                                                <input type="hidden" id="objetoPost" name="objetoPost" value="@comentario.Id" />
                                                 <input type="hidden" id="tipoReaccion" name="tipoReaccion" value="dislike" />
                                                 <button type="submit" class="btn btn-danger">Dislike</button>
-                                                <span>👎: @comentario.CdadDislike </span>
+
                                                 <span>VA: @comentario.VA </span>
                                             }
                                         </div>
@@ -119,10 +122,11 @@
     }
 
 }
-else
+else if (rol == "miem")
 {
-    <h1>No hay Publicaciones visibles!</h1>
+    <h1>No hay comentarios!</h1>
 }
+
 
 
 <style>

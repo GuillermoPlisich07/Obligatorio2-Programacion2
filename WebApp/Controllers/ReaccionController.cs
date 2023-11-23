@@ -25,6 +25,7 @@ namespace WebApp.Controllers
             {
                 Reaccion nueva = new Reaccion(tipoReaccion, miembro, unPub);
                 _sistema.CrearNuevaReaccion(nueva);
+                _sistema.ActualizarContadoresReacciones(nueva);
                 return RedirectToAction("Saludo", "Usuario");
             }
             else
@@ -38,8 +39,10 @@ namespace WebApp.Controllers
                     else
                     {
                         reaccion.TipoReaccion = "dislike";
+                        _sistema.ActualizarContadoresReacciones(reaccion, "actualizar");
                         return RedirectToAction("Saludo", "Usuario");
                     }
+                    
                 }
                 else if (reaccion.TipoReaccion == "dislike")
                 {
@@ -50,6 +53,7 @@ namespace WebApp.Controllers
                     else
                     {
                         reaccion.TipoReaccion = "like";
+                        _sistema.ActualizarContadoresReacciones(reaccion, "actualizar");
                         return RedirectToAction("Saludo", "Usuario");
                     }
                 }
