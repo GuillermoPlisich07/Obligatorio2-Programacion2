@@ -218,19 +218,19 @@ namespace Obligatorio1
         private void PrecargarPosts()
         {
             //Post [0]
-            Post post1 = new Post("vacaciones en Miami", new DateTime(2018, 08, 08), _listaUsuarios[0] as Miembro, "primavera en USA 🌈🌼", "img.jpg", "privado", false, false);
+            Post post1 = new Post("vacaciones en Miami", new DateTime(2018, 08, 08), _listaUsuarios[0] as Miembro, "primavera en USA 🌈🌼", "img.jpg", "privado", false, false,0, 0, 0);
             CrearNuevoPost(post1);
             //Post [1]
-            Post post2 = new Post("Recuerdos de París", new DateTime(2019, 06, 15), _listaUsuarios[1] as Miembro, "Días inolvidables en la Ciudad del Amor. 💖", "paris.jpg", "publico", false, true);
+            Post post2 = new Post("Recuerdos de París", new DateTime(2019, 06, 15), _listaUsuarios[1] as Miembro, "Días inolvidables en la Ciudad del Amor. 💖", "paris.jpg", "publico", false, true, 0, 0, 0);
             CrearNuevoPost(post2);
             //Post [2]
-            Post post3 = new Post("Aventuras en Tailandia", new DateTime(2020, 07, 25), _listaUsuarios[2] as Miembro, "Explorando la belleza de Tailandia. 🌴🌞", "tailandia.jpg", "publico", true, true);
+            Post post3 = new Post("Aventuras en Tailandia", new DateTime(2020, 07, 25), _listaUsuarios[2] as Miembro, "Explorando la belleza de Tailandia. 🌴🌞", "tailandia.jpg", "publico", true, true, 0, 0, 0);
             CrearNuevoPost(post3);
             //Post [3]
-            Post post4 = new Post("Excursión a Machu Picchu", new DateTime(2021, 09, 10), _listaUsuarios[3] as Miembro, "Un sueño hecho realidad en las alturas de Perú. 🏞️", "machupicchu.jpg", "publico", false, true);
+            Post post4 = new Post("Excursión a Machu Picchu", new DateTime(2021, 09, 10), _listaUsuarios[3] as Miembro, "Un sueño hecho realidad en las alturas de Perú. 🏞️", "machupicchu.jpg", "publico", false, true, 0, 0, 0);
             CrearNuevoPost(post4);
             //Post [4]
-            Post post5 = new Post("Noche de concierto en Nueva York", new DateTime(2022, 07, 03), _listaUsuarios[4] as Miembro, "Vibrando al ritmo de la Gran Manzana. 🎶🗽", "nyconcert.jpg", "publico", false, true);
+            Post post5 = new Post("Noche de concierto en Nueva York", new DateTime(2022, 07, 03), _listaUsuarios[4] as Miembro, "Vibrando al ritmo de la Gran Manzana. 🎶🗽", "nyconcert.jpg", "publico", false, true, 0, 0, 0);
             CrearNuevoPost(post5);
         }
 
@@ -241,79 +241,79 @@ namespace Obligatorio1
         private void PrecargarComentarios()
         {
             //Post [0]
-            Comentario comentario1 = new Comentario(_listaPubicaciones[0] as Post, "¡Wow, esta foto es simplemente impresionante! 😍", new DateTime(2023, 01, 08), _listaUsuarios[1] as Miembro, "foto divi", _listaPubicaciones[0].EsPublico);
+            Comentario comentario1 = new Comentario(_listaPubicaciones[0] as Post, "¡Wow, esta foto es simplemente impresionante! 😍", new DateTime(2023, 01, 08), _listaUsuarios[1] as Miembro, "foto divi", _listaPubicaciones[0].EsPublico,0, 0, 0);
             CrearNuevoComentario(comentario1);
             Post Post1 = _listaPubicaciones[0] as Post;
             Post1.AsociarComentario(comentario1);
 
-            Comentario comentario2 = new Comentario(_listaPubicaciones[0] as Post, "¡¿Dónde tomaste esta increíble imagen? 😮", new DateTime(2023, 01, 09), _listaUsuarios[1] as Miembro, "foton", _listaPubicaciones[0].EsPublico);
+            Comentario comentario2 = new Comentario(_listaPubicaciones[0] as Post, "¡¿Dónde tomaste esta increíble imagen? 😮", new DateTime(2023, 01, 09), _listaUsuarios[1] as Miembro, "foton", _listaPubicaciones[0].EsPublico, 0, 0, 0);
             CrearNuevoComentario(comentario2);
             Post1.AsociarComentario(comentario2);
 
-            Comentario comentario3 = new Comentario(_listaPubicaciones[0] as Post, "¡Qué lugar tan hermoso! Me encantaría visitarlo algún día. 🌴☀️", new DateTime(2023, 02, 08), _listaUsuarios[1] as Miembro, "hermoso", _listaPubicaciones[0].EsPublico);
+            Comentario comentario3 = new Comentario(_listaPubicaciones[0] as Post, "¡Qué lugar tan hermoso! Me encantaría visitarlo algún día. 🌴☀️", new DateTime(2023, 02, 08), _listaUsuarios[1] as Miembro, "hermoso", _listaPubicaciones[0].EsPublico, 0, 0, 0);
             CrearNuevoComentario(comentario3);
             Post1.AsociarComentario(comentario3);
 
 
             //Post [1]
-            Comentario comentario4 = new Comentario(_listaPubicaciones[1] as Post, "La naturaleza siempre nos sorprende con su belleza. 🍃💖", new DateTime(2023, 03, 08), _listaUsuarios[2] as Miembro, "belleza", _listaPubicaciones[1].EsPublico);
+            Comentario comentario4 = new Comentario(_listaPubicaciones[1] as Post, "La naturaleza siempre nos sorprende con su belleza. 🍃💖", new DateTime(2023, 03, 08), _listaUsuarios[2] as Miembro, "belleza", _listaPubicaciones[1].EsPublico, 0, 0, 0);
             CrearNuevoComentario(comentario4);
             Post Post2 = _listaPubicaciones[1] as Post;
             Post2.AsociarComentario(comentario4);
 
-            Comentario comentario5 = new Comentario(_listaPubicaciones[1] as Post, "No puedo evitar envidiar tu talento para la fotografía. 📷💫", new DateTime(2023, 04, 08), _listaUsuarios[2] as Miembro, "talentoso", _listaPubicaciones[1].EsPublico);
+            Comentario comentario5 = new Comentario(_listaPubicaciones[1] as Post, "No puedo evitar envidiar tu talento para la fotografía. 📷💫", new DateTime(2023, 04, 08), _listaUsuarios[2] as Miembro, "talentoso", _listaPubicaciones[1].EsPublico, 0, 0, 0);
             CrearNuevoComentario(comentario5);
             Post2.AsociarComentario(comentario5);
 
-            Comentario comentario6 = new Comentario(_listaPubicaciones[1] as Post, "Esa puesta de sol es simplemente mágica. ✨🌅", new DateTime(2023, 04, 08), _listaUsuarios[2] as Miembro, "magic", _listaPubicaciones[1].EsPublico);
+            Comentario comentario6 = new Comentario(_listaPubicaciones[1] as Post, "Esa puesta de sol es simplemente mágica. ✨🌅", new DateTime(2023, 04, 08), _listaUsuarios[2] as Miembro, "magic", _listaPubicaciones[1].EsPublico, 0, 0, 0);
             CrearNuevoComentario(comentario6);
             Post2.AsociarComentario(comentario6);
 
 
             //Post [2]
-            Comentario comentario7 = new Comentario(_listaPubicaciones[2] as Post, "Qué foto tan relajante! Me hace sentir en paz. 🌿🌊", new DateTime(2023, 03, 08), _listaUsuarios[1] as Miembro, "peace", _listaPubicaciones[2].EsPublico);
+            Comentario comentario7 = new Comentario(_listaPubicaciones[2] as Post, "Qué foto tan relajante! Me hace sentir en paz. 🌿🌊", new DateTime(2023, 03, 08), _listaUsuarios[1] as Miembro, "peace", _listaPubicaciones[2].EsPublico, 0, 0, 0);
             CrearNuevoComentario(comentario7);
             Post Post3 = _listaPubicaciones[2] as Post;
             Post3.AsociarComentario(comentario7);
 
 
-            Comentario comentario8 = new Comentario(_listaPubicaciones[2] as Post, "Estoy obsesionado/a con tus fotos, siempre son asombrosas. 📸👏", new DateTime(2023, 04, 08), _listaUsuarios[1] as Miembro, "awesome", _listaPubicaciones[2].EsPublico);
+            Comentario comentario8 = new Comentario(_listaPubicaciones[2] as Post, "Estoy obsesionado/a con tus fotos, siempre son asombrosas. 📸👏", new DateTime(2023, 04, 08), _listaUsuarios[1] as Miembro, "awesome", _listaPubicaciones[2].EsPublico, 0, 0, 0);
             CrearNuevoComentario(comentario8);
             Post3.AsociarComentario(comentario8);
 
 
-            Comentario comentario9 = new Comentario(_listaPubicaciones[2] as Post, "Esa sonrisa tuya ilumina la foto. 😄💕", new DateTime(2023, 04, 08), _listaUsuarios[1] as Miembro, "smile", _listaPubicaciones[2].EsPublico);
+            Comentario comentario9 = new Comentario(_listaPubicaciones[2] as Post, "Esa sonrisa tuya ilumina la foto. 😄💕", new DateTime(2023, 04, 08), _listaUsuarios[1] as Miembro, "smile", _listaPubicaciones[2].EsPublico, 0, 0, 0);
             CrearNuevoComentario(comentario9);
             Post3.AsociarComentario(comentario9);
 
             //Post [3]
-            Comentario comentario10 = new Comentario(_listaPubicaciones[3] as Post, "¡Estás viviendo la vida al máximo! 🙌", new DateTime(2023, 03, 08), _listaUsuarios[1] as Miembro, "max", _listaPubicaciones[3].EsPublico);
+            Comentario comentario10 = new Comentario(_listaPubicaciones[3] as Post, "¡Estás viviendo la vida al máximo! 🙌", new DateTime(2023, 03, 08), _listaUsuarios[1] as Miembro, "max", _listaPubicaciones[3].EsPublico, 0, 0, 0);
             CrearNuevoComentario(comentario10);
             Post Post4 = _listaPubicaciones[3] as Post;
             Post4.AsociarComentario(comentario10);
 
 
-            Comentario comentario11 = new Comentario(_listaPubicaciones[3] as Post, "¿Cuál es el secreto para verte tan bien en todas tus fotos? 😁", new DateTime(2023, 04, 08), _listaUsuarios[1] as Miembro, "divi", _listaPubicaciones[3].EsPublico);
+            Comentario comentario11 = new Comentario(_listaPubicaciones[3] as Post, "¿Cuál es el secreto para verte tan bien en todas tus fotos? 😁", new DateTime(2023, 04, 08), _listaUsuarios[1] as Miembro, "divi", _listaPubicaciones[3].EsPublico, 0, 0, 0);
             CrearNuevoComentario(comentario11);
             Post4.AsociarComentario(comentario11);
 
-            Comentario comentario12 = new Comentario(_listaPubicaciones[3] as Post, "Esta imagen me transporta a otro mundo. 🚀🌌", new DateTime(2023, 04, 08), _listaUsuarios[1] as Miembro, "mundo", _listaPubicaciones[3].EsPublico);
+            Comentario comentario12 = new Comentario(_listaPubicaciones[3] as Post, "Esta imagen me transporta a otro mundo. 🚀🌌", new DateTime(2023, 04, 08), _listaUsuarios[1] as Miembro, "mundo", _listaPubicaciones[3].EsPublico, 0, 0, 0);
             CrearNuevoComentario(comentario12);
             Post4.AsociarComentario(comentario12);
 
 
             //Post [4]
-            Comentario comentario13 = new Comentario(_listaPubicaciones[4] as Post, "La naturaleza siempre nos sorprende con su belleza. 🍃💖", new DateTime(2023, 03, 08), _listaUsuarios[3] as Miembro, "belleza", _listaPubicaciones[4].EsPublico);
+            Comentario comentario13 = new Comentario(_listaPubicaciones[4] as Post, "La naturaleza siempre nos sorprende con su belleza. 🍃💖", new DateTime(2023, 03, 08), _listaUsuarios[3] as Miembro, "belleza", _listaPubicaciones[4].EsPublico, 0, 0, 0);
             CrearNuevoComentario(comentario13);
             Post Post5 = _listaPubicaciones[4] as Post;
             Post5.AsociarComentario(comentario13);
 
-            Comentario comentario14 = new Comentario(_listaPubicaciones[4] as Post, "No puedo evitar envidiar tu talento para la fotografía. 📷💫", new DateTime(2023, 04, 08), _listaUsuarios[3] as Miembro, "talentoso", _listaPubicaciones[4].EsPublico);
+            Comentario comentario14 = new Comentario(_listaPubicaciones[4] as Post, "No puedo evitar envidiar tu talento para la fotografía. 📷💫", new DateTime(2023, 04, 08), _listaUsuarios[3] as Miembro, "talentoso", _listaPubicaciones[4].EsPublico, 0, 0, 0);
             CrearNuevoComentario(comentario14);
             Post5.AsociarComentario(comentario14);
 
 
-            Comentario comentario15 = new Comentario(_listaPubicaciones[4] as Post, "No puedo evitar envidiar tu talento para la fotografía. 📷💫", new DateTime(2023, 04, 08), _listaUsuarios[3] as Miembro, "talentoso", _listaPubicaciones[4].EsPublico);
+            Comentario comentario15 = new Comentario(_listaPubicaciones[4] as Post, "No puedo evitar envidiar tu talento para la fotografía. 📷💫", new DateTime(2023, 04, 08), _listaUsuarios[3] as Miembro, "talentoso", _listaPubicaciones[4].EsPublico, 0, 0, 0);
             CrearNuevoComentario(comentario15);
             Post5.AsociarComentario(comentario15);
         }
@@ -465,7 +465,21 @@ namespace Obligatorio1
                 throw new Exception($"Ya existe reaccion");
             }
             react.ValidarReaccion();
+            ActualizarContadoresReacciones(react);
             _listaReacciones.Add(react);
+        }
+
+
+        public void ActualizarContadoresReacciones(Reaccion react)
+        {
+            if (react.TipoReaccion == "like") 
+            { 
+                react.PublicacionReaccionada.CdadLike++;
+            }
+            else if (react.TipoReaccion == "dislike")
+            {
+                react.PublicacionReaccionada.CdadDislike++;
+            }
         }
 
 
@@ -995,6 +1009,60 @@ namespace Obligatorio1
             }
             return obj;
         }
+
+
+
+        public int ContarLikes(Publicacion unaPub)
+        {
+            int contador = 0;
+            foreach (Reaccion unaRea in _listaReacciones)
+            {
+                if (unaRea.TipoReaccion == "like" && unaRea.PublicacionReaccionada == unaPub)
+                {
+                    contador++;
+                }
+            }
+            return contador;
+        }
+
+        public int ContarDislikes(Publicacion unaPub)
+        {
+            int contador = 0;
+            foreach (Reaccion unaRea in _listaReacciones)
+            {
+                if (unaRea.TipoReaccion == "dislike" && unaRea.PublicacionReaccionada == unaPub)
+                {
+                    contador++;
+                }
+            }
+            return contador;
+        }
+
+        //Metodo para calcular Valor de Aceptacion
+        public decimal CalcularVA(Publicacion unaPub)
+        {
+            decimal VA = 0;
+            int cdadLikes = ContarLikes(unaPub);
+            int cdadDislikes = ContarDislikes(unaPub);
+            VA = (cdadLikes * 5) + (cdadDislikes * (-2));
+            if (unaPub is Post && unaPub.EsPublico)
+            {
+                VA = VA + 10;
+            }
+            return VA;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
 
     }
 }

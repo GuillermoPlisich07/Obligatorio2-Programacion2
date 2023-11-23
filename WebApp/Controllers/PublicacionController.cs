@@ -46,7 +46,7 @@ namespace WebApp.Controllers
             DateTime fechaActual = new DateTime();
             fechaActual = DateTime.Now;
 
-            Post post5 = new Post(contenido, fechaActual, miembro, titulo, img, estado, false, esPublico);
+            Post post5 = new Post(contenido, fechaActual, miembro, titulo, img, estado, false, esPublico, 0, 0, 0);
             _sistema.CrearNuevoPost(post5);
 
             return RedirectToAction("Saludo", "Usuario");
@@ -63,7 +63,7 @@ namespace WebApp.Controllers
             DateTime fechaActual = new DateTime();
             fechaActual = DateTime.Now;
 
-            Comentario nuevoComentario = new Comentario(unPost, comentario, fechaActual, miembro, titulo, unPost.EsPublico);
+            Comentario nuevoComentario = new Comentario(unPost, comentario, fechaActual, miembro, titulo, unPost.EsPublico, 0, 0, 0);
             _sistema.CrearNuevoComentario(nuevoComentario);
             unPost.AsociarComentario(nuevoComentario);
 

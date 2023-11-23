@@ -21,8 +21,9 @@ namespace Obligatorio1
 
         }
 
-        public Post(string contenido, DateTime fecha, Miembro miembro, string titulo,string img, string estado, bool censurado, bool esPublico)
-        :base(contenido,fecha,miembro,titulo,esPublico)
+        public Post(string contenido, DateTime fecha, Miembro miembro, string titulo,string img, 
+            string estado, bool censurado, bool esPublico, int cdadLike, int cdadDislike, decimal vA)
+        :base(contenido,fecha,miembro,titulo,esPublico,cdadLike,cdadDislike,vA)
         {
             Img = img;
             Estado = estado;

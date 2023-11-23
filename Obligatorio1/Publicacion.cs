@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Obligatorio1
 {
 
-    public abstract class Publicacion: IEquatable<Publicacion>
+    public abstract class Publicacion : IEquatable<Publicacion>
     {
         //Static
         private static int autID;
@@ -20,6 +20,10 @@ namespace Obligatorio1
         public Miembro Miembro { get; set; }
         public string Titulo { get; set; }
         public bool EsPublico { get; set; }
+        public int CdadLike { get; set; }
+        public int CdadDislike { get; set; }
+        public decimal VA { get; set; }
+
 
         public Publicacion()
         {
@@ -27,7 +31,8 @@ namespace Obligatorio1
         }
 
         //Constructor
-        public Publicacion(string contenido, DateTime fecha, Miembro miembro, string titulo, bool esPublico)
+        public Publicacion(string contenido, DateTime fecha, Miembro miembro, string titulo, bool esPublico, 
+            int cdadLike, int cdadDislike, decimal vA)
         {
             Id = ++autID;
             Contenido = contenido;
@@ -36,6 +41,9 @@ namespace Obligatorio1
             Titulo = titulo;
             EsPublico = esPublico;
             Validar();
+            CdadLike = 0;
+            CdadDislike = 0;
+            VA = 0;
         }
 
         /// <summary>
@@ -75,6 +83,7 @@ namespace Obligatorio1
         }
 
 
+     
 
     }
 }
