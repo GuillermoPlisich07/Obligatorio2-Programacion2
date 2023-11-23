@@ -15,6 +15,7 @@
 @{
     List<Post> publicaciones = ViewData["Posts"] as List<Post>;
     List<Comentario> comentarios = ViewData["Comentarios"] as List<Comentario>;
+    string rol = ViewData["userLogin"] as string;
 }
 
 @if (publicaciones != null)
@@ -116,10 +117,11 @@
     }
 
 }
-else
+else if (rol == "miem")
 {
-    <h1>No hay Publicaciones visibles!</h1>
+    <h1>No hay comentarios!</h1>
 }
+
 
 
 <style>

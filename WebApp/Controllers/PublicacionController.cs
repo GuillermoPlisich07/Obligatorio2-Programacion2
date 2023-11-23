@@ -8,9 +8,11 @@ namespace WebApp.Controllers
     public class PublicacionController : Controller
     {
         private Sistema _sistema = Sistema.Instancia;
-        public IActionResult Index(string email)
+
+        [Admin]
+        public IActionResult Index()
         {
-            ViewBag.Miembros = _sistema.ListarPost(email);
+            ViewData["Posts"] = _sistema.ListarTodasLosPost();
             return View();
         }
 
@@ -29,7 +31,7 @@ namespace WebApp.Controllers
             return View();
         }
 
-
+        [Miem]
         [HttpPost]
         public IActionResult Postear(string titulo, string contenido, string img, string estado)
         {
@@ -95,6 +97,7 @@ namespace WebApp.Controllers
             }
         }
 
+        [Miem]
         [HttpPost]
         public IActionResult Comentar(string titulo, string objetoComentario, string comentario)
         {
@@ -147,6 +150,58 @@ namespace WebApp.Controllers
             }
         }
 
+        [Admin]
+        [HttpPost]
+        public IActionResult Bloquear(string id)
+        {
+            try
+            {
+                if (id!=null)
+                {
+                    Post unPost = (Post)_sistema.ObtenerPublicacion(id);
+                    unPost.Censurado = true;
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    throw new Exception($"El objeto Post es requerido");
+                }
+            }
+            catch (Exception e)
+            {
+
+                ViewBag.error = e.Message;
+                return View("Index");
+            }
+
+        }
+
+        [Admin]
+        [HttpPost]
+        public IActionResult Desbloquear(string id)
+        {
+
+            try
+            {
+                if (id != null)
+                {
+                    Post unPost = (Post)_sistema.ObtenerPublicacion(id);
+                    unPost.Censurado = false;
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    throw new Exception($"El objeto Post es requerido");
+                }
+            }
+            catch (Exception e)
+            {
+
+                ViewBag.error = e.Message;
+                return View("Index");
+            }
+            
+        }
 
     }
 }

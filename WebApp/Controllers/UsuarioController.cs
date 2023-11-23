@@ -91,12 +91,16 @@ namespace WebApp.Controllers
 
                     ViewData["Comentarios"] = comentarios;
 
+                    ViewData["userLogin"] = rol;
+
                 }
                 else
                 {
                     ViewData["Posts"] = null;
 
                     ViewData["Comentarios"] = null;
+
+                    ViewData["userLogin"] = rol;
                 }
 
             }
@@ -105,6 +109,8 @@ namespace WebApp.Controllers
                 ViewData["Posts"] = null;
 
                 ViewData["Comentarios"] = null;
+
+                ViewData["userLogin"] = rol;
             }
 
             return View();
