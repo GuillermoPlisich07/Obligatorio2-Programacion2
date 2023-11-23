@@ -76,16 +76,20 @@
                                         <div class="reaccion-comentario">
                                             @using (Html.BeginForm("Reaccionar", "Reaccion", FormMethod.Post))
                                             {
-                                                <input type="hidden" id="objetoPost" name="objetoPost" value="@unaPub.Id" />
+                                                <span>👍: @comentario.CdadLike </span>
+                                                <input type="hidden" id="objetoPost" name="objetoPost" value="@comentario.Id" />
                                                 <input type="hidden" id="tipoReaccion" name="tipoReaccion" value="like" />
                                                 <button type="submit" class="btn btn-success">Like</button>
                                             }
 
                                             @using (Html.BeginForm("Reaccionar", "Reaccion", FormMethod.Post))
                                             {
-                                                <input type="hidden" id="objetoPost" name="objetoPost" value="@unaPub.Id" />
+                                                <span>👎: @comentario.CdadDislike </span>
+                                                <input type="hidden" id="objetoPost" name="objetoPost" value="@comentario.Id" />
                                                 <input type="hidden" id="tipoReaccion" name="tipoReaccion" value="dislike" />
                                                 <button type="submit" class="btn btn-danger">Dislike</button>
+
+                                                <span>VA: @comentario.VA </span>
                                             }
                                         </div>
                                     </div>

@@ -327,13 +327,17 @@ namespace Obligatorio1
             //reacciones a Post
             Reaccion reaccion1 = new Reaccion("like", _listaUsuarios[1] as Miembro, _listaPubicaciones[0] as Post);
             CrearNuevaReaccion(reaccion1);
+            ActualizarContadoresReacciones(reaccion1);
             Reaccion reaccion2 = new Reaccion("like", _listaUsuarios[1] as Miembro, _listaPubicaciones[2] as Post);
             CrearNuevaReaccion(reaccion2);
+            ActualizarContadoresReacciones(reaccion2);
             //reacciones a Comentarios
             Reaccion reaccion3 = new Reaccion("like", _listaUsuarios[2] as Miembro, _listaPubicaciones[3] as Post);
             CrearNuevaReaccion(reaccion3);
+            ActualizarContadoresReacciones(reaccion3);
             Reaccion reaccion4 = new Reaccion("dislike", _listaUsuarios[3] as Miembro, _listaPubicaciones[4] as Post);
             CrearNuevaReaccion(reaccion4);
+            ActualizarContadoresReacciones(reaccion4);
         }
 
 
@@ -465,20 +469,31 @@ namespace Obligatorio1
                 throw new Exception($"Ya existe reaccion");
             }
             react.ValidarReaccion();
-            ActualizarContadoresReacciones(react);
             _listaReacciones.Add(react);
         }
 
 
-        public void ActualizarContadoresReacciones(Reaccion react)
+        public void ActualizarContadoresReacciones(Reaccion react,string actualizar = null)
         {
+            if (react==null)
+            {
+                throw new Exception($"La reaccion es nula");
+            }
             if (react.TipoReaccion == "like") 
             { 
                 react.PublicacionReaccionada.CdadLike++;
+                if (actualizar!=null)
+                {
+                    react.PublicacionReaccionada.CdadDislike--;
+                }
             }
             else if (react.TipoReaccion == "dislike")
             {
                 react.PublicacionReaccionada.CdadDislike++;
+                if (actualizar != null)
+                {
+                    react.PublicacionReaccionada.CdadLike--;
+                }
             }
             react.PublicacionReaccionada.VA = CalcularVA(react.PublicacionReaccionada);
         }
