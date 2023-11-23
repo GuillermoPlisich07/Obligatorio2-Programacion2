@@ -30,6 +30,7 @@
                 <div class="card-body">
                     <p class="card-text">@unaPub.Contenido</p>
                 </div>
+
                 <div class="card-footer-post">
 
 
@@ -51,6 +52,12 @@
                     
                 </div>
 
+                <div>
+                    <span>👍: @unaPub.CdadLike </span>
+                    <span>👎: @unaPub.CdadDislike </span>
+                    <span>VA: @unaPub.VA </span>
+                </div>
+
 
                 @if (comentarios != null)
                 {
@@ -65,28 +72,7 @@
                                         <h5 class="card-title">@comentario.Titulo</h5>
                                         <p>Fecha: @comentario.Fecha.ToShortDateString() - Autor: @comentario.Miembro.Nombre @comentario.Miembro.Apellido</p>
                                     </div>
-                                    <div class="contendio-comentario">
-                                        <p class="card-text">@comentario.Contenido</p>
-
-                                        <div class="reaccion-comentario">
-                                                
-                                            @using (Html.BeginForm("Reaccionar", "Reaccion", FormMethod.Post))
-                                            {
-
-                                                <input type="hidden" id="objetoPost" name="objetoPost" value="@comentario.Id" />
-                                                <input type="hidden" id="tipoReaccion" name="tipoReaccion" value="like" />
-                                                <button type="submit" class="btn btn-success">Like</button>
-                                            }
-
-                                            @using (Html.BeginForm("Reaccionar", "Reaccion", FormMethod.Post))
-                                            {
-                                                <input type="hidden" id="objetoPost" name="objetoPost" value="@comentario.Id" />
-                                                <input type="hidden" id="tipoReaccion" name="tipoReaccion" value="dislike" />
-                                                <button type="submit" class="btn btn-danger">Dislike</button>
-                                            }
-                                        </div>
-                                    </div>
-                                    
+                                    <p class="card-text">@comentario.Contenido</p>
                                 </div>
                             </div>
                         }

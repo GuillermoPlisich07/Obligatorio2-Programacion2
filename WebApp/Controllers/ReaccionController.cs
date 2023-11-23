@@ -25,7 +25,6 @@ namespace WebApp.Controllers
             {
                 Reaccion nueva = new Reaccion(tipoReaccion, miembro, unPub);
                 _sistema.CrearNuevaReaccion(nueva);
-
                 return RedirectToAction("Saludo", "Usuario");
             }
             else
